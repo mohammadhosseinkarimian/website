@@ -1,7 +1,7 @@
 name: Deploy to GitHub Pages
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]   # or main if that’s your default
   workflow_dispatch:
 
 permissions:
@@ -23,9 +23,8 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci
-      - run: npm run build   # CRA outputs to ./build
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: ./build
   deploy:
