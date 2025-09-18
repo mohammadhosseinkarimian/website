@@ -1,0 +1,201 @@
+/* Inherit your site's background + fonts. No background or font overrides here. */
+.ra-page {
+  padding-top: var(--nav-h, 64px); /* below navbar */
+}
+
+/* Layout helpers */
+.container {
+  width: min(1100px, 92vw);
+  margin-inline: auto;
+}
+
+/* Typography inherits your primary/secondary fonts.
+   We only set spacing/size (fluid + responsive). */
+.ra-hero {
+  padding: clamp(28px, 5vw, 64px) 0;
+  text-align: center;
+}
+
+.ra-pill {
+  display: inline-block;
+  font-size: clamp(12px, 1.6vw, 13px);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .5rem .75rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  opacity: .85;
+}
+
+#ra-title {
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.1;
+  margin: 14px 0 8px;
+}
+
+.ra-lead {
+  font-size: clamp(15px, 2.2vw, 18px);
+  max-width: 70ch;
+  margin: 12px auto 0;
+  opacity: .9;
+}
+
+/* Sections */
+.ra-section { padding: clamp(24px, 4.5vw, 56px) 0; }
+
+/* Split layout */
+.ra-split {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: clamp(18px, 4vw, 36px);
+  align-items: center;
+}
+
+.ra-split--swap {
+  grid-template-columns: .95fr 1.05fr;
+}
+
+@media (max-width: 880px) {
+  .ra-split, .ra-split--swap { grid-template-columns: 1fr; }
+}
+
+/* Figures */
+.ra-figure { margin: 0; }
+
+.ra-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  border: 1px solid color-mix(in oklab, currentColor 12%, transparent);
+  box-shadow: var(--shadow-2, 0 12px 34px rgba(0,0,0,.14));
+}
+
+/* Keep first image as-is; constrain the second image width on wide screens */
+.ra-figure--left {
+  justify-self: start;
+  max-width: clamp(320px, 46vw, 580px);
+}
+
+.ra-figure--right {
+  justify-self: end;
+  max-width: clamp(320px, 42vw, 520px); /* <-- prevents the “too wide” look */
+}
+
+.ra-figure figcaption {
+  font-size: 12px;
+  opacity: .7;
+  margin-top: 8px;
+}
+
+/* Body copy */
+.ra-body h2 {
+  font-size: clamp(20px, 3vw, 28px);
+  margin: 0 0 12px;
+}
+
+.ra-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: .6rem;
+  font-size: clamp(14px, 1.9vw, 16px);
+}
+
+/* Tags */
+.ra-tags {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ra-tags > span {
+  padding: .35rem .6rem;
+  border: 1px dashed currentColor;
+  border-radius: 999px;
+  background: color-mix(in oklab, white 88%, transparent);
+  font-size: 12px;
+  opacity: .85;
+}
+
+/* Cards */
+.ra-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(14px, 2.6vw, 22px);
+  margin-top: 8px;
+}
+
+@media (max-width: 880px) { .ra-cards { grid-template-columns: 1fr; } }
+
+.ra-card {
+  background: color-mix(in oklab, white 92%, transparent);
+  border-radius: 14px;
+  padding: clamp(14px, 2.2vw, 18px);
+  box-shadow: var(--shadow-1, 0 8px 24px rgba(0,0,0,.10));
+  border: 1px solid color-mix(in oklab, currentColor 10%, transparent);
+}
+
+/* Case study (Section 3) */
+.ra-case {
+  display: grid;
+  gap: .85rem;
+  max-width: 78ch;
+}
+
+.ra-checklist {
+  list-style: none;
+  padding: 0;
+  margin: .4rem 0 0;
+  display: grid;
+  gap: .5rem;
+  font-size: clamp(14px, 1.9vw, 16px);
+}
+.ra-checklist li { display: flex; gap: .5rem; align-items: baseline; }
+.ra-checklist li span { font-weight: 700; }
+
+/* Impact metrics */
+.ra-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 2.4vw, 18px);
+}
+
+@media (max-width: 720px) { .ra-metrics { grid-template-columns: 1fr; } }
+
+.ra-metric {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  align-items: center;
+  gap: 10px;
+  background: color-mix(in oklab, white 94%, transparent);
+  border-radius: 12px;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in oklab, currentColor 10%, transparent);
+  box-shadow: var(--shadow-1, 0 8px 24px rgba(0,0,0,.10));
+}
+.ra-metric__num { font-size: 22px; font-weight: 800; line-height: 1; text-align: center; }
+.ra-metric__txt { font-size: clamp(14px, 1.9vw, 16px); }
+
+/* CTA */
+.ra-cta {
+  text-align: center;
+  padding-bottom: clamp(28px, 5vw, 64px);
+}
+
+.ra-cta a {
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+
+/* Nice, subtle motion if allowed */
+@media (prefers-reduced-motion: no-preference) {
+  .ra-figure img, .ra-card, .ra-metric {
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .ra-figure img:hover, .ra-card:hover, .ra-metric:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-3, 0 14px 36px rgba(0,0,0,.16));
+  }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="mkGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#22D3EE"/>  <!-- cyan -->
+      <stop offset="50%" stop-color="#38BDF8"/>  <!-- sky -->
+      <stop offset="100%" stop-color="#4F46E5"/> <!-- indigo -->
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="url(#mkGrad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="6" y="6" width="84" height="84" rx="16" ry="16"/>
+    <path d="M22 68V28l14 22 14-22v40"/>
+    <path d="M58 28v40M58 48l18-20M58 48l18 20"/>
+  </g>
+</svg>
