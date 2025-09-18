@@ -43,9 +43,9 @@ export default function NavBar({
 
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="hidden md:flex items-center gap-2 sm:gap-3">
-            <a href="#work" className="btn text-xs sm:text-sm">Work</a>
-            <a href="#about" className="btn text-xs sm:text-sm">About</a>
-            <a href="#contact" className="btn text-xs sm:text-sm">Contact</a>
+            <a href="./#work" className="btn text-xs sm:text-sm">Work</a>
+            <a href="./#about" className="btn text-xs sm:text-sm">About</a>
+            <a href="./#contact" className="btn text-xs sm:text-sm">Contact</a>
           </div>
 
           <div className="hidden sm:flex items-center gap-2">

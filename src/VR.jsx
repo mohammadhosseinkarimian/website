@@ -171,7 +171,7 @@ return (
              <RevealMedia
     className="w-full"
     dir="right"
-    src="/images/vr.mp4"
+  src={`${process.env.PUBLIC_URL}/images/vr2.mp4`}
     poster="/images/vr1.png"
   />
           </div>
