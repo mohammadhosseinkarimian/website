@@ -340,7 +340,7 @@
   letter-spacing: .14em;
   text-transform: uppercase;
   font-size: clamp(1.1rem, 3vw, 1.6rem);
-  color: color-mix(in srgb, var(--heading-accent) 88%, white 20%);
+  color: color-mix(in srgb, var(--text-2) 70%, rgb(82, 80, 80) 30%);
   background:
     radial-gradient(140% 220% at 50% 20%, rgba(255,255,255,.14), transparent 60%),
     linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.02));

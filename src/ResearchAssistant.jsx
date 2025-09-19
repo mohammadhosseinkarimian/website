@@ -169,8 +169,8 @@ export default function ResearchAssistant() {
             <RevealImage
               className="w-full"
               dir="right"
-              src="https://scontent.fyyc2-1.fna.fbcdn.net/v/t39.30808-6/542135316_747792018094944_2835478015266074717_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=jAz6Aa9vu6UQ7kNvwFXJCH_&_nc_oc=AdmjwbD1JxKIi-79txw8KxkU7DYvMf8me60VesJVrwBBMBmd3vTG33qk-6UDFYODTjk&_nc_zt=23&_nc_ht=scontent.fyyc2-1.fna&_nc_gid=caY1YBM62min2BXfbD2OSg&oh=00_AfaSpSZ13_xjee7nhMigXy4-0hF9RypHHT8VtXr8iXSyyw&oe=68C6ACEB"
-              alt="Simple confounding DAG with Z affecting T and Y"
+              src="https://www.frontiersin.org/files/Articles/492625/fpsyg-11-01069-HTML/image_m/fpsyg-11-01069-g001.jpg"              
+              alt=""
               style={{ maxHeight: "min(80%, 460px)" }}
               caption={
                 <>
