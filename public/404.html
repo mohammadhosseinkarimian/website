@@ -2,9 +2,19 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="refresh" content="0; url=/" />
     <title>Redirecting…</title>
-    <script>location.replace("/");</script>
+    <script>
+      // SPA fallback for GitHub Pages (preserves the deep URL)
+      (function () {
+        var l = window.location;
+        // build "/index.html?/the/path?query#hash"
+        var path = l.pathname.replace(/^\/+/, ''); // strip leading slash
+        var url =
+          l.protocol + '//' + l.host +
+          '/index.html?/' + path + l.search + l.hash;
+        l.replace(url);
+      })();
+    </script>
   </head>
   <body>Redirecting…</body>
 </html>
