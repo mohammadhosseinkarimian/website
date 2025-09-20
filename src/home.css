@@ -787,3 +787,20 @@ canvas { image-rendering: auto; }
   100% { opacity: 0; }
 }
 
+/* --- iOS Safari white-background fix for blurred/fixed header items --- */
+@supports (-webkit-touch-callout: none) {
+  /* iOS only: avoid backdrop artifacts on the fixed nav */
+  .navwrap.scrolled {
+    /* remove blur on iOS and use a translucent dark bg instead */
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.32) !important;
+  }
+
+  /* kill backdrop blur on tiny UI chips (logo tile, etc.) */
+  .ios-no-backdrop {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background: transparent !important; /* or rgba(0,0,0,.18) if you want a tint */
+  }
+}

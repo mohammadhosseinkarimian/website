@@ -34,16 +34,16 @@ export default function NavBar({
     <header className={`navwrap fixed top-0 inset-x-0 z-20 ${scrolled ? "scrolled" : "bg-transparent"}`}>
       <nav className="mx-auto flex items-center justify-between gap-3 sm:gap-4 px-3 sm:px-5 lg:px-10 py-2.5 sm:py-3">
         <a href=".\" className="group inline-flex items-center gap-2 sm:gap-3">
-         <img
-  src="/mk.svg"
-  alt="MK logo"
-  className="inline-block h-7 w-7 sm:h-8 sm:w-8 rounded-xl  bd backdrop-blur-sm object-contain p-1"
-  draggable="false"
-/>
-          <span className="font-semibold tracking-wide text-1 group-hover:text-white transition-colors text-sm sm:text-base">
-            Mhmd<span className="opacity-60"></span>
-          </span>
-        </a>
+  <img
+    src="/mk.svg"
+    alt="MK logo"
+    className="inline-block h-7 w-7 sm:h-8 sm:w-8 rounded-xl bd object-contain p-1 ios-no-backdrop"
+    draggable="false"
+  />
+  <span className="font-semibold tracking-wide text-1 group-hover:text-white transition-colors text-sm sm:text-base">
+    Mhmd<span className="opacity-60"></span>
+  </span>
+</a>
 
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="hidden md:flex items-center gap-2 sm:gap-3">
@@ -68,7 +68,13 @@ export default function NavBar({
             </label>
           </div>
 
-          <button className="md:hidden btn text-xs" onClick={()=>setMenuOpen(v=>!v)} aria-label="Menu">Menu</button>
+         <button
+  className="md:hidden btn text-xs ios-no-backdrop"
+  onClick={() => setMenuOpen(v => !v)}
+  aria-label="Menu"
+>
+  Menu
+</button>
         </div>
       </nav>
 
