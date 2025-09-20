@@ -37,3 +37,5 @@
   }
 }
 
+.brand-stroke { stroke: currentColor; transition: stroke .3s ease; }
+.group:hover .brand-stroke { stroke: url(#mkGrad); }

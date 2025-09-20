@@ -241,7 +241,7 @@ export default function MLIntern() {
                     <div className="rounded-xl p-5 sm:p-6 shadow-lg flex flex-wrap items-center justify-between gap-3">
                       <p className="text-3">
                         See more of this in my{" "}
-                        <a className="see-publications underline underline-offset-4" href="/https://github.com/mohammadhosseinkarimian/Image_Processing">Github</a>.
+                        <a className="see-publications underline underline-offset-4" href="https://github.com/mohammadhosseinkarimian/Image_Processing">Github</a>.
                       </p>
                     </div>
                   </section>

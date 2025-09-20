@@ -738,3 +738,52 @@ canvas { image-rendering: auto; }
     margin-inline: 0;   /* let your md:justify-self-* take over */
   }
 }
+
+/* base: use current text color for the logo stroke */
+.brand-stroke { stroke: currentColor; transition: stroke .3s ease; }
+
+/* on hover of the row, swap to gradient stroke */
+.group:hover .brand-stroke { stroke: url(#mkGrad); }
+
+/* optional: respect reduced motion (only color change, no scale) */
+@media (prefers-reduced-motion: reduce) {
+  .brand-logo { transition: none; }
+}
+.group:hover .brand-logo { filter: drop-shadow(0 0 6px rgba(58,104,255,.35)); }
+
+/* === Diagonal theme sweep (TR ➜ BL) =================================== */
+#page-shell { position: relative; z-index: 0; }   /* sweep anchors here */
+
+.theme-sweep {
+  position: absolute;       /* <— anchor to #page-shell, not the whole window */
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;              /* over content + background, under any modals you may open */
+  --sweep: var(--c-primary, #0B0F1A);
+
+  /* Wide diagonal band carrying the INCOMING color */
+  background:
+    linear-gradient(
+      225deg,  /* top-right to bottom-left */
+      color-mix(in srgb, var(--sweep) 85%, white 15%) 0%,
+      color-mix(in srgb, var(--sweep) 85%, white 15%) 50%,
+      transparent 64%
+    );
+  background-size: 200% 200%;
+  background-position: 100% 0%;   /* start at top-right */
+
+  mix-blend-mode: color;          /* tint hue+saturation (clearer across dark bg) */
+
+  /* longer, smoother */
+  animation: themeSweep 1600ms ease forwards, themeSweepFade 1600ms ease forwards;
+  filter: saturate(1.08) brightness(1.04);
+}
+
+@keyframes themeSweep { to { background-position: 0% 100%; } }  /* ends bottom-left */
+@keyframes themeSweepFade {
+  0%   { opacity: .00; }
+  10%  { opacity: .85; }
+  85%  { opacity: .85; }
+  100% { opacity: 0; }
+}
+

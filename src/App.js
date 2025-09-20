@@ -134,6 +134,7 @@ export default function App() {
       <ScrollReset />
       <ThemedScrollbars />
       <BurningRoutes />
+      
     </Router>
   );
 }

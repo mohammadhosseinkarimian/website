@@ -237,6 +237,14 @@ return (
             );
           })()}
         </section>
+         <section className="mt-12 md:mt-16">
+          <div className="rounded-xl p-5 sm:p-6 shadow-lg flex flex-wrap items-center justify-between gap-3">
+            <p className="text-3">
+              See more descryption in my{" "}
+              <a className="see-publications underline underline-offset-4" href="https://www.linkedin.com/in/mohammadhossein-karimian/">LinkedIn</a>.
+            </p>
+          </div>
+        </section>
 
       </div>
     </main>

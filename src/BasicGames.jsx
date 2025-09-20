@@ -237,7 +237,7 @@ return (
           <div className="rounded-xl p-5 sm:p-6 shadow-lg flex flex-wrap items-center justify-between gap-3">
             <p className="text-3">
               See more game builds and technical write-ups in my{" "}
-              <a className="see-publications underline underline-offset-4" href="/publish">Publications</a>.
+              <a className="see-publications underline underline-offset-4" href="https://github.com/mohammadhosseinkarimian">Github</a>.
             </p>
           </div>
         </section>

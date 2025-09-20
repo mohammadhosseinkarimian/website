@@ -243,8 +243,8 @@ return (
         <section className="mt-12 md:mt-16">
           <div className="rounded-xl p-5 sm:p-6 shadow-lg flex flex-wrap items-center justify-between gap-3">
             <p className="text-3">
-              See the whole games from my{" "}
-              <a className="see-publications underline underline-offset-4" href="https://github.com/mohammadhosseinkarimian/CPP_Games">Github</a>.
+              See the whole game in my{" "}
+              <a className="see-publications underline underline-offset-4" href="https://github.com/mohammadhosseinkarimian/EscapeRoomVR">Github</a>.
             </p>
           </div>
         </section>
