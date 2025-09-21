@@ -194,7 +194,13 @@ export default function PortfolioHome() {
               {/* Brand + blurb */}
               <div className="brand-row group inline-flex items-center gap-3">
                 <svg
-                  className="brand-logo w-10 h-10 sm:w-12 sm:h-12 transition-transform duration-300 group-hover:scale-110"
+                  className="brand-logo shrink-0
+           w-6  h-6        /* phones */
+           sm:w-7  sm:h-7  /* small tablets */
+           md:w-9 md:h-9 /* laptops */
+           lg:w-12 lg:h-12 /* desktops */
+           2xl:w-14 2xl:h-14
+           transition-transform duration-300 group-hover:scale-110"
                   viewBox="0 -2 100 100"
                   aria-label="MK monogram"
                 >
