@@ -822,8 +822,8 @@ html, body {
   /* two fully-opaque colors, so there is never a transparent pixel */
   background: linear-gradient(
     to top,
-    color-mix(in srgb, black 82%, var(--c-primary) 18%) 0%,
-    color-mix(in srgb, black 86%, var(--c-primary) 14%) 100%
+    color-mix(in srgb, black 78%, var(--c-primary) 22%) 0%,
+    color-mix(in srgb, black 80%, var(--c-primary) 20%) 100%
   );
 
   /* stability hints */
@@ -849,3 +849,10 @@ html, body {
 @media (pointer: coarse) {
   .pulse-fill, .pulse-cracks { display: none !important; }
 }
+
+/* Painterly BG layers must always cover the dynamic viewport on mobile */
+.pbg-layer,
+.pbg-canvas { width: 100dvw; height: 100dvh; }
+
+/* Safety net already present is fine: */
+html, body { background:#000; overscroll-behavior-y: contain; }
