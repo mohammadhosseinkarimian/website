@@ -637,7 +637,6 @@ html::-webkit-scrollbar-corner  { background: var(--scroll-corner); }
 
 canvas { image-rendering: auto; }
 .site-footer{
-  border-top: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
   padding-block: clamp(1rem, 3vw, 2rem);
 }
 
@@ -830,19 +829,26 @@ canvas { image-rendering: auto; }
   }
 }
 
-/* Footer: softer look, still flicker-proof */
-.site-footer{
-  /* lighter base — not pitch black */
-  background-color: rgba(0, 0, 0, 0.16);
+/* 1) Never show the browser's white behind the page during fling */
+html, body {
+  background: #000;                 /* safety net */
+  overscroll-behavior-y: contain;   /* stop white overscroll flash */
+}
 
-  /* subtle theme tint on top */
+/* 2) Footer: light, stable background (not dark) + its own layer */
+.site-footer{
+  position: relative;
+  /* soft base, not black */
+  background-color: rgba(0,0,0,0.10);
+  /* gentle theme tint on top */
   background-image: linear-gradient(
     to top,
-    color-mix(in srgb, var(--c-primary) 18%, transparent) 0%,
-    color-mix(in srgb, var(--c-primary) 8%,  transparent) 100%
+    color-mix(in srgb, var(--c-primary) 14%, transparent) 0%,
+    color-mix(in srgb, var(--c-primary) 6%,  transparent) 100%
   );
+  background-blend-mode: overlay;
 
-  /* keep the stability bits */
+  /* stability hints */
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   transform: translateZ(0);
@@ -851,7 +857,27 @@ canvas { image-rendering: auto; }
   isolation: isolate;
 }
 
-/* If you added this earlier, keep it (prevents white base peeking through) */
-html, body { background: #000; }
+/* 3) Fixed, LIGHT underlay so the footer never goes transparent on Android */
+.site-footer::before{
+  content: "";
+  position: fixed;          /* anchored to viewport, not scrolling */
+  left: 0; right: 0; bottom: 0;
+  height: 22vh;             /* the visible footer band */
+  pointer-events: none;
+  /* subtle bottom glow, not dark */
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.14) 0%,
+    rgba(0,0,0,0.06) 55%,
+    rgba(0,0,0,0.00) 100%
+  );
+  /* keep it behind the footer content */
+  z-index: 0;
+}
+/* ensure the footer content sits above its ::before underlay */
+.site-footer { z-index: 1; }
 
-/* Optional: if it’s still a tad dark, drop the alpha to 0.12 or 0.10 */
+/* (optional) if you still see a momentary line on some GPUs, keep pulse auras off on phones */
+@media (pointer: coarse) {
+  .pulse-fill, .pulse-cracks { display: none !important; }
+}
