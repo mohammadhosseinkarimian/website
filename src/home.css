@@ -670,28 +670,6 @@ canvas { image-rendering: auto; }
 }
 
 
-/* Android Chrome fast-scroll white flash fix for the footer */
-.site-footer{
-  /* 1) make it non-transparent (keeps your look but removes “white flash”) */
-  background: linear-gradient(
-    to top,
-    color-mix(in srgb, var(--c-primary) 4%, #00000048 96%) 0%,
-    color-mix(in srgb, var(--c-primary) 4%, #00000048 96%) 100%
-  );
-
-  /* 2) avoid backdrop artifacts */
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-
-  /* 3) force a stable compositing layer during momentum scroll */
-  transform: translateZ(0);
-  will-change: transform;
-  contain: paint;
-  isolation: isolate; /* prevents blend/overlay from affecting ancestors */
-}
-
-/* If you have a separate .footer-grid with a transparent bg, keep it transparent */
-.footer-grid{ background: transparent; }
 
 
 .brand-icon{
@@ -837,24 +815,16 @@ html, body {
 
 /* 2) Footer: light, stable background (not dark) + its own layer */
 /* Footer: light, opaque enough to avoid flashes — no fixed layers */
+/* Footer: fully opaque (no alpha), GPU-stable, but still light */
 .site-footer{
   position: relative;
 
-  /* light base, not black */
-  background-color: rgba(0,0,0,0.10);
-
-  /* gentle theme tint */
-  background-image: linear-gradient(
+  /* two fully-opaque colors, so there is never a transparent pixel */
+  background: linear-gradient(
     to top,
-    color-mix(in srgb, var(--c-primary) 14%, transparent) 0%,
-    color-mix(in srgb, var(--c-primary) 6%,  transparent) 100%
+    color-mix(in srgb, black 82%, var(--c-primary) 18%) 0%,
+    color-mix(in srgb, black 86%, var(--c-primary) 14%) 100%
   );
-  background-blend-mode: overlay;
-
-  /* soft insets instead of a fixed underlay */
-  box-shadow:
-    inset 0 -50px 120px rgba(0,0,0,0.12),
-    inset 0 -8px 24px rgba(0,0,0,0.10);
 
   /* stability hints */
   -webkit-backdrop-filter: none;
@@ -863,7 +833,17 @@ html, body {
   will-change: transform;
   contain: paint;
   isolation: isolate;
+
+  /* keep it rasterized cleanly */
+  backface-visibility: hidden;
 }
+
+/* optional: make its inner grid its own layer too */
+.footer-grid{
+  background: transparent;
+  backface-visibility: hidden;
+}
+
 
 /* (optional) if you still see a momentary line on some GPUs, keep pulse auras off on phones */
 @media (pointer: coarse) {
