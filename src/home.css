@@ -637,6 +637,7 @@ html::-webkit-scrollbar-corner  { background: var(--scroll-corner); }
 
 canvas { image-rendering: auto; }
 .site-footer{
+  border-top: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
   padding-block: clamp(1rem, 3vw, 2rem);
 }
 
@@ -670,6 +671,28 @@ canvas { image-rendering: auto; }
 }
 
 
+/* Android Chrome fast-scroll white flash fix for the footer */
+.site-footer{
+  /* 1) make it non-transparent (keeps your look but removes “white flash”) */
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--c-primary) 4%, #0000007d 96%) 0%,
+    color-mix(in srgb, var(--c-primary) 4%, #00000048 96%) 100%
+  );
+
+  /* 2) avoid backdrop artifacts */
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+
+  /* 3) force a stable compositing layer during momentum scroll */
+  transform: translateZ(0);
+  will-change: transform;
+  contain: paint;
+  isolation: isolate; /* prevents blend/overlay from affecting ancestors */
+}
+
+/* If you have a separate .footer-grid with a transparent bg, keep it transparent */
+.footer-grid{ background: transparent; }
 
 
 .brand-icon{
@@ -806,53 +829,3 @@ canvas { image-rendering: auto; }
     background: transparent !important; /* or rgba(0,0,0,.18) if you want a tint */
   }
 }
-
-/* 1) Never show the browser's white behind the page during fling */
-html, body {
-  background: #000;                 /* safety net */
-  overscroll-behavior-y: contain;   /* stop white overscroll flash */
-}
-
-/* 2) Footer: light, stable background (not dark) + its own layer */
-/* Footer: light, opaque enough to avoid flashes — no fixed layers */
-/* Footer: fully opaque (no alpha), GPU-stable, but still light */
-.site-footer{
-  position: relative;
-
-  /* two fully-opaque colors, so there is never a transparent pixel */
-  background: linear-gradient(
-    to top,
-    color-mix(in srgb, black 78%, var(--c-primary) 22%) 0%,
-    color-mix(in srgb, black 80%, var(--c-primary) 20%) 100%
-  );
-
-  /* stability hints */
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  transform: translateZ(0);
-  will-change: transform;
-  contain: paint;
-  isolation: isolate;
-
-  /* keep it rasterized cleanly */
-  backface-visibility: hidden;
-}
-
-/* optional: make its inner grid its own layer too */
-.footer-grid{
-  background: transparent;
-  backface-visibility: hidden;
-}
-
-
-/* (optional) if you still see a momentary line on some GPUs, keep pulse auras off on phones */
-@media (pointer: coarse) {
-  .pulse-fill, .pulse-cracks { display: none !important; }
-}
-
-/* Painterly BG layers must always cover the dynamic viewport on mobile */
-.pbg-layer,
-.pbg-canvas { width: 100dvw; height: 100dvh; }
-
-/* Safety net already present is fine: */
-html, body { background:#000; overscroll-behavior-y: contain; }

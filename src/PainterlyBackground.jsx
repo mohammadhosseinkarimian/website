@@ -34,58 +34,23 @@ function paint(ctx,W,H,baseHex){
     ctx.lineWidth=.7+Math.random()*.8; ctx.beginPath(); ctx.moveTo(px,py);
     for(let s=0;s<segs;s++){px+=(Math.random()-.5)*34; py+=(Math.random()-.2)*22; ctx.lineTo(px,py);} ctx.stroke();}
 }
-// PainterlyBackground.jsx
 
 export default function PainterlyBackground({ baseColor }) {
+  // if no color passed, read stored site color so all pages match Home
   const color = baseColor || (typeof window!=="undefined" && localStorage.getItem("ph.baseColor")) || "#0B0F1A";
   const ref = useRef(null);
 
   useEffect(() => {
-    const cvs = ref.current; if (!cvs) return;
-    const ctx = cvs.getContext("2d", { alpha: false });
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    const vv  = window.visualViewport;
-
-    const getSize = () => {
-      const w = Math.ceil(vv?.width  || window.innerWidth);
-      const h = Math.ceil(vv?.height || window.innerHeight);
-      return { w, h };
-    };
-
-    const resize = () => {
-      const { w, h } = getSize();
-      // buffer size
-      cvs.width  = w * dpr;
-      cvs.height = h * dpr;
-      // CSS size — tie to dynamic viewport units so it visually covers even during toolbar animation
-      cvs.style.width  = "100dvw";
-      cvs.style.height = "100dvh";
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      paint(ctx, w, h, color);
-    };
-
-    resize();
-    vv?.addEventListener("resize", resize);
-    window.addEventListener("resize", resize);
-    return () => {
-      vv?.removeEventListener("resize", resize);
-      window.removeEventListener("resize", resize);
-    };
+    const cvs=ref.current; if(!cvs) return; const ctx=cvs.getContext("2d",{alpha:false});
+    const dpr=Math.min(window.devicePixelRatio||1,1.5);
+    const resize=()=>{const w=window.innerWidth,h=window.innerHeight; cvs.width=w*dpr; cvs.height=h*dpr; cvs.style.width=w+"px"; cvs.style.height=h+"px"; ctx.setTransform(dpr,0,0,dpr,0,0); paint(ctx,w,h,color);};
+    resize(); window.addEventListener("resize",resize); return ()=>window.removeEventListener("resize",resize);
   }, [color]);
 
   return (
     <>
-      {/* base layer (kept) */}
-      <div
-        className="pbg-layer fixed inset-0 -z-20"
-        style={{
-          background:
-            "radial-gradient(1200px 800px at 30% 20%, rgba(255,255,255,0.04), transparent 60%), radial-gradient(1000px 700px at 70% 70%, rgba(0,0,0,0.15), transparent 65%)",
-          backgroundColor: "rgba(0,0,0,.9)",
-        }}
-      />
-      {/* canvas layer */}
-      <canvas ref={ref} className="pbg-canvas fixed inset-0 -z-10" />
+      <div className="fixed inset-0 -z-20" style={{background:"radial-gradient(1200px 800px at 30% 20%, rgba(255,255,255,0.04), transparent 60%), radial-gradient(1000px 700px at 70% 70%, rgba(0,0,0,0.15), transparent 65%)", backgroundColor:"rgba(0,0,0,.9)"}}/>
+      <canvas ref={ref} className="fixed inset-0 -z-10" />
       <div className="pulse-fill" />
       <div className="pulse-cracks" style={{ animationDelay: "160ms" }} />
     </>
