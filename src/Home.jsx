@@ -195,7 +195,7 @@ export default function PortfolioHome() {
               <div className="brand-row group inline-flex items-center gap-3">
                 <svg
                   className="brand-logo w-10 h-10 sm:w-12 sm:h-12 transition-transform duration-300 group-hover:scale-110"
-                  viewBox="0 0 96 96"
+                  viewBox="0 -2 100 100"
                   aria-label="MK monogram"
                 >
                   <defs>
