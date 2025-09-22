@@ -637,7 +637,6 @@ html::-webkit-scrollbar-corner  { background: var(--scroll-corner); }
 
 canvas { image-rendering: auto; }
 .site-footer{
-  border-top: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
   padding-block: clamp(1rem, 3vw, 2rem);
 }
 
@@ -671,29 +670,29 @@ canvas { image-rendering: auto; }
 }
 
 
-/* Android Chrome fast-scroll white flash fix for the footer */
+
+/* Final stable footer */
 .site-footer{
-  /* 1) make it non-transparent (keeps your look but removes “white flash”) */
+  position: relative;
   background: linear-gradient(
     to top,
-    color-mix(in srgb, var(--c-primary) 4%, #0000007d 96%) 0%,
-    color-mix(in srgb, var(--c-primary) 4%, #00000048 96%) 100%
+    color-mix(in srgb, black 78%, var(--c-primary) 24%) 0%,
+    color-mix(in srgb, black 82%, var(--c-primary) 20%) 100%
   );
-
-  /* 2) avoid backdrop artifacts */
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-
-  /* 3) force a stable compositing layer during momentum scroll */
   transform: translateZ(0);
   will-change: transform;
   contain: paint;
-  isolation: isolate; /* prevents blend/overlay from affecting ancestors */
+  isolation: isolate;
+  backface-visibility: hidden;
 }
 
-/* If you have a separate .footer-grid with a transparent bg, keep it transparent */
-.footer-grid{ background: transparent; }
-
+/* Keep this later one (layer hint), it doesn’t fight layout */
+.footer-grid{
+  background: transparent;
+  backface-visibility: hidden;
+}
 
 .brand-icon{
   width: 48px; height: 48px;
