@@ -65,18 +65,18 @@ const setVHVar = () => {
       return { w, h };
     };
 
-    const resize = () => {
-  setVHVar();                          // <— add this
+const resize = () => {
+  setVHVar();                               // <— add this
   const { w, h } = getSize();
   cvs.width  = w * dpr;
   cvs.height = h * dpr;
 
-  // CSS box (size is controlled by CSS; these are fine to keep)
+  // CSS box size is handled by CSS; these lines are fine to keep:
   cvs.style.width  = "100dvw";
   cvs.style.height = "100dvh";
 
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, w, h);           // <— clear transparently (no black flash)
+  ctx.clearRect(0, 0, w, h);                // <— transparent clear (no black frame)
   paint(ctx, w, h, color);
 };
 
