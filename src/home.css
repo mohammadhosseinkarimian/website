@@ -828,3 +828,9 @@ canvas { image-rendering: auto; }
     background: transparent !important; /* or rgba(0,0,0,.18) if you want a tint */
   }
 }
+/* Painterly background must follow dynamic viewport during URL bar collapse */
+.pbg-layer,
+.pbg-canvas {
+  width: 100dvw;
+  height: 100dvh;
+}
