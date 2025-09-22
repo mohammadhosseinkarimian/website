@@ -828,9 +828,21 @@ canvas { image-rendering: auto; }
     background: transparent !important; /* or rgba(0,0,0,.18) if you want a tint */
   }
 }
-/* Painterly background must follow dynamic viewport during URL bar collapse */
+/* Always cover the dynamic viewport; fall back to --vh on older browsers */
 .pbg-layer,
-.pbg-canvas {
-  width: 100dvw;
-  height: 100dvh;
+.pbg-canvas{
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);   /* fallback */
 }
+
+@supports (height: 100svh){
+  .pbg-layer, .pbg-canvas{ height: 100svh; }
+}
+@supports (height: 100dvh){
+  .pbg-layer, .pbg-canvas{ height: 100dvh; }
+}
+
+/* Compositor hints (reduce flicker on mobile) */
+.pbg-layer, .pbg-canvas{ will-change: transform; backface-visibility: hidden; }

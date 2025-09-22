@@ -52,10 +52,13 @@ export default function PainterlyBackground({ baseColor }) {
   useEffect(() => {
     const cvs = ref.current;
     if (!cvs) return;
-    const ctx = cvs.getContext("2d", { alpha: false });
+const ctx = cvs.getContext("2d", { alpha: true, desynchronized: true });
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const vv = window.visualViewport;
-
+const setVHVar = () => {
+  const vh = (window.visualViewport?.height || window.innerHeight) * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+};
     const getSize = () => {
       const w = Math.ceil(vv?.width || window.innerWidth);
       const h = Math.ceil(vv?.height || window.innerHeight);
@@ -63,16 +66,20 @@ export default function PainterlyBackground({ baseColor }) {
     };
 
     const resize = () => {
-      const { w, h } = getSize();
-      // bitmap size
-      cvs.width = w * dpr;
-      cvs.height = h * dpr;
-      // CSS box: always cover the *dynamic* viewport
-      cvs.style.width = "100dvw";
-      cvs.style.height = "100dvh";
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      paint(ctx, w, h, color);
-    };
+  setVHVar();                          // <— add this
+  const { w, h } = getSize();
+  cvs.width  = w * dpr;
+  cvs.height = h * dpr;
+
+  // CSS box (size is controlled by CSS; these are fine to keep)
+  cvs.style.width  = "100dvw";
+  cvs.style.height = "100dvh";
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, w, h);           // <— clear transparently (no black flash)
+  paint(ctx, w, h, color);
+};
+
 
     resize();
     vv?.addEventListener("resize", resize);
