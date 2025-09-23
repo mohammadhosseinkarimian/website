@@ -846,3 +846,31 @@ canvas { image-rendering: auto; }
 
 /* Compositor hints (reduce flicker on mobile) */
 .pbg-layer, .pbg-canvas{ will-change: transform; backface-visibility: hidden; }
+
+/* Footer: softer look, still flicker-proof */
+.site-footer{
+  /* lighter base — not pitch black */
+  background-color: rgba(0, 0, 0, 0.16);
+
+  /* subtle theme tint on top */
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--c-primary) 18%, transparent) 0%,
+    color-mix(in srgb, var(--c-primary) 8%,  transparent) 100%
+  );
+
+  /* keep the stability bits */
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transform: translateZ(0);
+  will-change: transform;
+  contain: paint;
+  isolation: isolate;
+}
+
+/* If you added this earlier, keep it (prevents white base peeking through) */
+html, body {
+background: #000;                 /* safety net */
+  overscroll-behavior-y: contain;   /* stop white overscroll flash */
+}
+/* Optional: if it’s still a tad dark, drop the alpha to 0.12 or 0.10 */
