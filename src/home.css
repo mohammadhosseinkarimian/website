@@ -831,14 +831,14 @@ canvas { image-rendering: auto; }
   position: fixed;
   inset: 0;
   width: 100vw;
-  height: calc(var(--vh, 1vh) * 100);   /* fallback computed from JS */
+  height: calc(var(--vh, 1vh) * 110);   /* fallback computed from JS */
 }
 
-@supports (height: 100svh){
-  .pbg-layer, .pbg-canvas{ height: 100svh; }
+@supports (height: 110svh){
+  .pbg-layer, .pbg-canvas{ height: 110svh; }
 }
-@supports (height: 100dvh){
-  .pbg-layer, .pbg-canvas{ height: 100dvh; }
+@supports (height: 110dvh){
+  .pbg-layer, .pbg-canvas{ height: 110dvh; }
 }
 
 /* Compositor hints (reduce flicker on mobile) */
