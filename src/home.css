@@ -825,21 +825,24 @@ canvas { image-rendering: auto; }
     background: transparent !important; /* or rgba(0,0,0,.18) if you want a tint */
   }
 }
-/* Always cover the dynamic viewport; fall back to --vh on older browsers */
+/* Painterly background layers – fill the viewport without vh units */
 .pbg-layer,
 .pbg-canvas{
   position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: calc(var(--vh, 1vh) * 110);   /* fallback computed from JS */
-}
-
-@supports (height: 110svh){
-  .pbg-layer, .pbg-canvas{ height: 110svh; }
-}
-@supports (height: 110dvh){
-  .pbg-layer, .pbg-canvas{ height: 110dvh; }
+  inset: 0;                    /* top/right/bottom/left = 0 → size from offsets */
+  width: auto;
+  height: auto;                /* let inset define the size, avoids 100vh/dvh churn */
+  z-index: 0 !important;       /* lift out of negative z-index compositor weirdness */
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);    /* force its own layer; reduces mobile flicker */
 }
 
 /* Compositor hints (reduce flicker on mobile) */
 .pbg-layer, .pbg-canvas{ will-change: transform; backface-visibility: hidden; }
+
+.pulse-fill,
+.pulse-cracks{
+  z-index: 1;
+}
+html, body { background: var(--c-primary); }
