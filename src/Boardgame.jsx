@@ -96,8 +96,8 @@ export default function Boardgame() {
             <RevealImage
               className="w-full"
               dir="left"
-              src="./images/Card.PNG"
-              alt="Boardgame pieces"
+              src="./images/Card.png"
+              alt=""
               caption={
                 <>
                   <span className="img-caption  mx-auto text-center">Home page and list of boardgames</span>
