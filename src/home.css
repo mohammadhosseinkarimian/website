@@ -668,9 +668,6 @@ canvas { image-rendering: auto; }
   line-height: 1.5;
   margin: 0;
 }
-
-
-
 /* Final stable footer */
 .site-footer{
   position: relative;
@@ -828,38 +825,19 @@ canvas { image-rendering: auto; }
     background: transparent !important; /* or rgba(0,0,0,.18) if you want a tint */
   }
 }
-/* Always cover the dynamic viewport; fall back to --vh on older browsers */
-.pbg-layer,
-.pbg-canvas{
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: calc(var(--vh, 1vh) * 100);   /* fallback computed from JS */
-}
-
-@supports (height: 100svh){
-  .pbg-layer, .pbg-canvas{ height: 100svh; }
-}
-@supports (height: 100dvh){
-  .pbg-layer, .pbg-canvas{ height: 100dvh; }
-}
-
-/* Compositor hints (reduce flicker on mobile) */
-.pbg-layer, .pbg-canvas{ will-change: transform; backface-visibility: hidden; }
-
-/* Footer: softer look, still flicker-proof */
 .site-footer{
-  /* lighter base — not pitch black */
-  background-color: rgba(0, 0, 0, 0.16);
-
-  /* subtle theme tint on top */
+  position: relative;
+  /* soft base, not black */
+  background-color: rgba(0,0,0,0.10);
+  /* gentle theme tint on top */
   background-image: linear-gradient(
     to top,
-    color-mix(in srgb, var(--c-primary) 18%, transparent) 0%,
-    color-mix(in srgb, var(--c-primary) 8%,  transparent) 100%
+    color-mix(in srgb, var(--c-primary) 14%, transparent) 0%,
+    color-mix(in srgb, var(--c-primary) 6%,  transparent) 100%
   );
+  background-blend-mode: overlay;
 
-  /* keep the stability bits */
+  /* stability hints */
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   transform: translateZ(0);
@@ -868,9 +846,27 @@ canvas { image-rendering: auto; }
   isolation: isolate;
 }
 
-/* If you added this earlier, keep it (prevents white base peeking through) */
-html, body {
-background: #000;                 /* safety net */
-  overscroll-behavior-y: contain;   /* stop white overscroll flash */
+/* 3) Fixed, LIGHT underlay so the footer never goes transparent on Android */
+.site-footer::before{
+  content: "";
+  position: fixed;          /* anchored to viewport, not scrolling */
+  left: 0; right: 0; bottom: 0;
+  height: 22vh;             /* the visible footer band */
+  pointer-events: none;
+  /* subtle bottom glow, not dark */
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.14) 0%,
+    rgba(0,0,0,0.06) 55%,
+    rgba(0,0,0,0.00) 100%
+  );
+  /* keep it behind the footer content */
+  z-index: 0;
 }
-/* Optional: if it’s still a tad dark, drop the alpha to 0.12 or 0.10 */
+/* ensure the footer content sits above its ::before underlay */
+.site-footer { z-index: 1; }
+
+/* (optional) if you still see a momentary line on some GPUs, keep pulse auras off on phones */
+@media (pointer: coarse) {
+  .pulse-fill, .pulse-cracks { display: none !important; }
+}
